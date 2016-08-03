@@ -1,6 +1,5 @@
 package com.first.examples.data;
 
-
 import java.time.LocalDate;
 
 public class User {
@@ -75,6 +74,6 @@ public class User {
 
   @Override
   public String toString() {
-    return name + " " + birthDate + " " + weight;
+    return "name: " + name + " birthday: " + birthDate + " weight: " + weight;
   }
 }
