@@ -1,5 +1,6 @@
 package com.first.examples.data;
 
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public enum TokenStorage {
@@ -15,7 +16,9 @@ public enum TokenStorage {
     }
   }
 
-  public void addToken(String sessionId, String id) {
+  public void addToken(String sessionId) {
+    String id = UUID.randomUUID().toString();
+    System.out.println("id: " + id);
     tokens.put(sessionId, id);
   }
 

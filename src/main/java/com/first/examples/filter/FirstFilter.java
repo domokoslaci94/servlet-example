@@ -1,5 +1,7 @@
 package com.first.examples.filter;
 
+import com.first.examples.data.TokenStorage;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.Filter;
@@ -30,14 +32,12 @@ public class FirstFilter implements Filter {
     if (req.getMethod().equals("POST")) {
       filterChain.doFilter(servletRequest, servletResponse);
     } else {
-
-      if (req.getParameter("name") != null) {
-        String name = (String) req.getParameter("name");
-        if (name.equalsIgnoreCase("laci")) {
-          filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-          writer.write("Unauthorized!");
-        }
+      String token = req.getHeader("token");
+      if (token.equals(TokenStorage.INSTANCE.getToken(req.getSession().getId()))) {
+        writer.write("Authorized");
+        filterChain.doFilter(servletRequest, servletResponse);
+      } else {
+        writer.write("Unauthorized!");
       }
     }
     System.out.println("doFilter called");
